@@ -1,13 +1,19 @@
+plugins {
+    id("java")
+}
+
 group = "com.bartoszjaszczak"
 version = "0.0.1-SNAPSHOT"
 
-dependencies {
-    aspect(project(":library:security"))
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation(kotlin("stdlib-jdk8"))
+repositories {
+    mavenCentral()
 }
 
-kotlin {
-    jvmToolchain(19)
+dependencies {
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

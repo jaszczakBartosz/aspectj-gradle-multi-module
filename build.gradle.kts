@@ -4,6 +4,7 @@ import io.freefair.gradle.plugins.aspectj.AjcAction
 plugins {
     id("io.spring.dependency-management") version "1.1.3"
     id("io.freefair.aspectj.post-compile-weaving") version "8.3"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
     kotlin("jvm") version "1.9.0"
 }
 
@@ -20,6 +21,7 @@ subprojects {
         plugin("java")
         plugin("kotlin")
         plugin("io.freefair.aspectj.post-compile-weaving")
+        plugin("org.jetbrains.kotlin.plugin.spring")
     }
 
     kotlin {
@@ -35,6 +37,7 @@ subprojects {
         implementation("org.aspectj:aspectjweaver:1.9.20")
         aspect("org.springframework.security:spring-security-aspects:5.8.5")
         runtimeOnly("org.springframework.security:spring-security-aspects:5.8.5")
+        implementation("org.slf4j:slf4j-api:2.0.9")
     }
 
     tasks.withType<Test> {
@@ -44,6 +47,12 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+        }
     }
 
     tasks.named<KotlinCompile>("compileTestKotlin") {

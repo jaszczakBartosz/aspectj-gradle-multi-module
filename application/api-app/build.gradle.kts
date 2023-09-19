@@ -11,6 +11,7 @@ version = "0.0.1-SNAPSHOT"
 
 
 dependencies {
+    aspect(project(":library:logger"))
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
